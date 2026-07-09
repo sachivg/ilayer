@@ -27,4 +27,5 @@ Dark navy/cyan design system, all copy sourced from the live ilayersolutions.com
 
 ## Backup
 
-A standalone snapshot (source only, no `node_modules`/`.next`/`.git`) is kept outside the repo — see the git commit message / conversation for the exact path and timestamp if needed, or ask Claude to re-check `../backups/`.
+- Git commit: `e8da213` ("Full redesign: dark tech UI with hero, services, expertise, vision, story, contact") on `main`, one commit after the create-next-app baseline (`94e9f9e`).
+- Standalone tarball (source only, no `node_modules`/`.next`/`.git`): `../backups/ilayer-backup-20260709-220641.tar.gz` — restore with `tar -xzf` into a fresh folder, then `npm install`.
