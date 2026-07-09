@@ -40,6 +40,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# dev server (start-dev.sh / stop-dev.sh)
-.dev-server.pid
-.dev-server.log
+# dev server (start.sh / stop.sh)
+.dev.pid
+.dev.log
