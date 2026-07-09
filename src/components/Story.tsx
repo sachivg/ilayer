@@ -26,28 +26,22 @@ type Milestone = {
 
 const JOURNEY: Milestone[] = [
   {
-    year: "2015",
-    title: "Founded in Delhi",
+    year: "2023",
+    title: "The Idea",
     description:
-      "iLayer Solutions is born, built on Juniper networking expertise and a mission to deliver infrastructure that regional ISPs and enterprises could actually rely on.",
+      "iLayer Solutions starts as an idea — a small team of network engineers convinced that infrastructure, security, and automation shouldn't require three different vendors and three different contracts.",
   },
   {
-    year: "2018",
-    title: "Opens in the USA",
+    year: "2024",
+    title: "Takes Shape",
     description:
-      "A Gilroy, California office extends our reach across North America, adding strategic cloud migration and management to the practice.",
+      "The idea becomes a company. iLayer stands up its founding practice areas and starts serving Telecom Operators, ISPs, and Enterprises across India, USA, and Australia.",
   },
   {
-    year: "2021",
-    title: "Expands to Australia",
+    year: "Since",
+    title: "No Stopping Since",
     description:
-      "Sydney and Melbourne teams stand up dedicated Cyber Security and Automation units, broadening what a single partner can own end-to-end.",
-  },
-  {
-    year: "Today",
-    title: "Full-lifecycle partner",
-    description:
-      "Infra, Cloud, Security, Backup, Automation, Training, and IT Resourcing under one roof — delivered by a globally certified team across three continents.",
+      "Automation, Training & Consulting, and IT Resourcing join the practice as the team keeps growing — one certified engineer, one client, one region at a time.",
   },
 ];
 
@@ -110,8 +104,8 @@ export function Story() {
           <h3 className="text-center text-sm font-medium uppercase tracking-widest text-muted">
             Since the Beginning
           </h3>
-          <div className="relative mx-auto mt-10 max-w-5xl">
-            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="relative mx-auto mt-10 max-w-4xl">
+            <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
               {JOURNEY.map((milestone) => (
                 <div key={milestone.year} className="relative pl-6">
                   <div className="absolute left-0 top-1 h-full w-px bg-border" />
