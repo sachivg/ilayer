@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 
@@ -40,13 +41,15 @@ export function Header() {
       }`}
     >
       <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
-        <Link href="#home" className="flex items-center gap-2.5">
-          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-accent to-accent-2 font-mono text-sm font-bold text-background">
-            iL
-          </span>
-          <span className="text-base font-semibold tracking-tight text-foreground">
-            iLayer Solutions
-          </span>
+        <Link href="#home" className="flex items-center">
+          <Image
+            src="/logo.png"
+            alt="iLayer Solutions"
+            width={999}
+            height={475}
+            priority
+            className="h-8 w-auto"
+          />
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex">

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Mail } from "lucide-react";
 
@@ -37,13 +38,14 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-6 py-14 lg:px-8">
         <div className="flex flex-col items-start justify-between gap-10 sm:flex-row">
           <div>
-            <Link href="#home" className="flex items-center gap-2.5">
-              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-accent to-accent-2 font-mono text-sm font-bold text-background">
-                iL
-              </span>
-              <span className="text-base font-semibold tracking-tight text-foreground">
-                iLayer Solutions
-              </span>
+            <Link href="#home" className="flex items-center">
+              <Image
+                src="/logo.png"
+                alt="iLayer Solutions"
+                width={999}
+                height={475}
+                className="h-8 w-auto"
+              />
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted">
               Infrastructure, security, and automation solutions for Telecom
