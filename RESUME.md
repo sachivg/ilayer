@@ -1,31 +1,43 @@
-# Resume point — iLayer Solutions redesign
+# Resume point — iLayer Solutions
 
-**Status as of 2026-07-09 evening:** v1 of the redesign is complete and verified working (desktop + mobile, no console errors). Paused here for the night.
+**Status as of 2026-07-13:** Site is now multi-page with a real brand identity applied. Pushed to `origin/main` on GitHub (`sachivg/ilayer`). Not deployed/hosted anywhere yet — still local-only for live testing.
 
 ## Start / stop
 
+Requires Node ≥20.9 — the system default `node` is v17, so use nvm first:
+
 ```bash
-./scripts/start-dev.sh   # starts on http://localhost:3000, waits until ready
-./scripts/stop-dev.sh    # graceful SIGTERM, falls back to SIGKILL after 10s
+export NVM_DIR="$HOME/.nvm" && \. "$NVM_DIR/nvm.sh" && nvm use 22
+./start.sh   # starts on http://localhost:3000, waits until ready
+./stop.sh    # graceful SIGTERM, falls back to SIGKILL after 10s, takes a backup tarball
 ```
 
-Both are safe to re-run — `start-dev.sh` no-ops if already running or if port 3000 is taken by something else; `stop-dev.sh` no-ops if nothing is running.
+Both are safe to re-run — `start.sh` no-ops if already running or if port 3000 is taken; `stop.sh` no-ops if nothing is running. `start.sh` auto-commits any pending work before launching.
 
 ## What's built
 
-Single-page site in `src/app/page.tsx`, sections in `src/components/`:
-`Header` → `Hero` → `StatsBar` → `Services` → `Expertise` → `Vision` → `Story` → `Contact` (includes `Locations`) → `Footer`.
+Multi-page site (App Router), routes in `src/app/`: `/` (home), `/vision`, `/about`, `/services`, `/expertise`, `/contact`. Shared `Header`/`Footer` with nav list in `src/lib/nav.ts`.
 
-Dark navy/cyan design system, all copy sourced from the live ilayersolutions.com (services, stats, certifications, offices). Contact form currently opens a prefilled `mailto:info@ilayersolutions.com` — there's no backend.
+**Brand identity (new, 2026-07-13):**
+- Real logo wired in (`public/logo.png`, `public/logo-icon.png`, favicon/apple-icon) — derived from `~/Downloads/ilayer-logo.png` via transparency-keying since the source had a baked-in background.
+- Palette pulled from the logo's own rainbow-layer spectrum: warm amber (`--accent: #ff8a3d`) + teal (`--accent-2: #2dd4bf`) on warm charcoal neutrals, replacing the original generic cyan/indigo scheme. Tokens in `src/app/globals.css`.
+- Custom SVG "stacked layers" illustration (`src/components/LayersMark.tsx`) echoing the logo mark — used as hero art and as subtle rotated watermarks on Vision/About/Services/Expertise/Contact.
+- 5-hue color-cycle utility (`src/lib/swatches.ts`) used for icon chips, timeline dots, location pins, and stat numbers so cards don't all repeat the same accent color.
+
+## Testing
+
+No hosting configured yet. For live/real-device testing without deploying to the real domain, options discussed: Vercel preview deployment (recommended — real HTTPS/CDN URL, not the production domain), a quick ngrok/Cloudflare tunnel (ephemeral, zero setup), or local-network-only via LAN IP. Decision pending — was about to set up the GitHub push as the first step toward a Vercel preview when this session paused.
+
+Verified via headless Chromium (Playwright, added as a devDependency): all 6 routes × desktop/mobile, zero console errors, zero failed requests, clean `tsc --noEmit`.
 
 ## Open items / decisions for next session
 
-- No form backend — if you want submissions to actually go somewhere (email service, DB), need to pick one (Resend, Formspree, etc.) and wire it up.
-- No hosting/deployment yet — still local-only.
-- No feedback given yet on the visual direction (colors, layout, tone) — first thing to check in the morning is whether the design itself is a hit or needs changes before going further.
-- `ilayer/` is a git repo, currently on `main`, one commit ahead of the create-next-app baseline (see `git log`).
+- Pick and set up the live-testing path (Vercel preview / tunnel / LAN) — see "Testing" above.
+- No form backend — contact form still opens a prefilled `mailto:info@ilayersolutions.com`.
+- No custom domain/hosting for the real launch yet.
+- Design direction (new palette + layers illustration) was applied based on user's "surprise me" steer — worth a final gut-check once viewable on a real device/live URL, not just local screenshots.
 
 ## Backup
 
-- Git commit: `e8da213` ("Full redesign: dark tech UI with hero, services, expertise, vision, story, contact") on `main`, one commit after the create-next-app baseline (`94e9f9e`).
-- Standalone tarball (source only, no `node_modules`/`.next`/`.git`): `../backups/ilayer-backup-20260709-220641.tar.gz` — restore with `tar -xzf` into a fresh folder, then `npm install`.
+- Git: pushed to `origin/main` on GitHub (`sachivg/ilayer`) as of this session.
+- `stop.sh` also writes a standalone tarball snapshot to `~/Documents/ilayer-backups/` on every stop.
