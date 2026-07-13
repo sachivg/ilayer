@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
-import { Mail, Send } from "lucide-react";
+import { useState } from "react";
+import { Mail, Send, CheckCircle2, AlertCircle } from "lucide-react";
 import { LayersMark } from "./LayersMark";
+import { useFormspreeSubmit } from "@/lib/useFormspreeSubmit";
 
 const CONTACT_EMAIL = "info@ilayersolutions.com";
 
@@ -20,18 +21,13 @@ export function Partnership() {
   const [type, setType] = useState(PARTNERSHIP_TYPES[0]);
   const [message, setMessage] = useState("");
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const subject = encodeURIComponent(
-      `Partnership enquiry from ${company || name || "website"}`
-    );
-    const body = encodeURIComponent(
-      `Company: ${company}\nPartnership type: ${type}\n\n${message}\n\n— ${name}${
-        email ? ` (${email})` : ""
-      }`
-    );
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
-  }
+  const { status, submit } = useFormspreeSubmit(() => {
+    setCompany("");
+    setName("");
+    setEmail("");
+    setType(PARTNERSHIP_TYPES[0]);
+    setMessage("");
+  });
 
   return (
     <section
@@ -54,7 +50,18 @@ export function Partnership() {
         </div>
 
         <div className="mt-10 rounded-3xl border border-border bg-surface/60 p-8 sm:p-12">
-          <form onSubmit={handleSubmit} className="space-y-5">
+          {status === "success" ? (
+            <div className="flex flex-col items-center gap-3 px-6 py-10 text-center">
+              <CheckCircle2 size={28} className="text-accent-2" />
+              <p className="text-base font-semibold text-foreground">
+                Enquiry sent
+              </p>
+              <p className="text-sm text-muted">
+                Thanks for reaching out — we&rsquo;ll be in touch shortly.
+              </p>
+            </div>
+          ) : (
+          <form onSubmit={submit} className="space-y-5">
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
               <div>
                 <label
@@ -155,6 +162,23 @@ export function Partnership() {
               />
             </div>
 
+            {status === "error" && (
+              <div className="flex items-start gap-2 rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-200">
+                <AlertCircle size={16} className="mt-0.5 shrink-0" />
+                <span>
+                  Something went wrong sending that. Please email us
+                  directly at{" "}
+                  <a
+                    href={`mailto:${CONTACT_EMAIL}`}
+                    className="font-medium underline underline-offset-2"
+                  >
+                    {CONTACT_EMAIL}
+                  </a>
+                  .
+                </span>
+              </div>
+            )}
+
             <div className="flex flex-col items-center gap-4 pt-2 sm:flex-row sm:justify-between">
               <a
                 href={`mailto:${CONTACT_EMAIL}`}
@@ -165,13 +189,15 @@ export function Partnership() {
               </a>
               <button
                 type="submit"
-                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-accent to-accent-2 px-6 py-3 text-sm font-semibold text-background transition-transform hover:scale-[1.02] sm:w-auto"
+                disabled={status === "submitting"}
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-accent to-accent-2 px-6 py-3 text-sm font-semibold text-background transition-transform hover:scale-[1.02] disabled:opacity-60 disabled:hover:scale-100 sm:w-auto"
               >
-                Send Enquiry
+                {status === "submitting" ? "Sending..." : "Send Enquiry"}
                 <Send size={16} />
               </button>
             </div>
           </form>
+          )}
         </div>
       </div>
     </section>

@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
-import { Mail, Send } from "lucide-react";
+import { useState } from "react";
+import { Mail, Send, CheckCircle2, AlertCircle } from "lucide-react";
 import { Locations } from "./Locations";
 import { LayersMark } from "./LayersMark";
+import { useFormspreeSubmit } from "@/lib/useFormspreeSubmit";
 
 const CONTACT_EMAIL = "info@ilayersolutions.com";
 
@@ -12,14 +13,11 @@ export function Contact() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const subject = encodeURIComponent(`Enquiry from ${name || "website"}`);
-    const body = encodeURIComponent(
-      `${message}\n\n— ${name}${email ? ` (${email})` : ""}`
-    );
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
-  }
+  const { status, submit } = useFormspreeSubmit(() => {
+    setName("");
+    setEmail("");
+    setMessage("");
+  });
 
   return (
     <section
@@ -44,7 +42,18 @@ export function Contact() {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="mt-10 space-y-5">
+          {status === "success" ? (
+            <div className="mt-10 flex flex-col items-center gap-3 rounded-2xl border border-accent-2/30 bg-accent-2/10 px-6 py-10 text-center">
+              <CheckCircle2 size={28} className="text-accent-2" />
+              <p className="text-base font-semibold text-foreground">
+                Message sent
+              </p>
+              <p className="text-sm text-muted">
+                Thanks for reaching out — we&rsquo;ll get back to you shortly.
+              </p>
+            </div>
+          ) : (
+          <form onSubmit={submit} className="mt-10 space-y-5">
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
               <div>
                 <label
@@ -102,6 +111,23 @@ export function Contact() {
               />
             </div>
 
+            {status === "error" && (
+              <div className="flex items-start gap-2 rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-200">
+                <AlertCircle size={16} className="mt-0.5 shrink-0" />
+                <span>
+                  Something went wrong sending that. Please email us
+                  directly at{" "}
+                  <a
+                    href={`mailto:${CONTACT_EMAIL}`}
+                    className="font-medium underline underline-offset-2"
+                  >
+                    {CONTACT_EMAIL}
+                  </a>
+                  .
+                </span>
+              </div>
+            )}
+
             <div className="flex flex-col items-center gap-4 pt-2 sm:flex-row sm:justify-between">
               <a
                 href={`mailto:${CONTACT_EMAIL}`}
@@ -112,13 +138,15 @@ export function Contact() {
               </a>
               <button
                 type="submit"
-                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-accent to-accent-2 px-6 py-3 text-sm font-semibold text-background transition-transform hover:scale-[1.02] sm:w-auto"
+                disabled={status === "submitting"}
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-accent to-accent-2 px-6 py-3 text-sm font-semibold text-background transition-transform hover:scale-[1.02] disabled:opacity-60 disabled:hover:scale-100 sm:w-auto"
               >
-                Send Message
+                {status === "submitting" ? "Sending..." : "Send Message"}
                 <Send size={16} />
               </button>
             </div>
           </form>
+          )}
         </div>
       </div>
       </div>
