@@ -101,6 +101,14 @@ export function Story() {
             solutions, and Network Automation across India, USA, and
             Australia.
           </p>
+          <p className="mt-4 text-pretty leading-relaxed text-muted">
+            <span className="font-semibold text-foreground">
+              Our mission:
+            </span>{" "}
+            infrastructure, security, and automation that works the way
+            telecom operators, ISPs, and enterprises actually run — not the
+            way a vendor&rsquo;s roadmap says it should.
+          </p>
         </div>
 
         <div className="mt-20">
@@ -137,8 +145,13 @@ export function Story() {
 
         <div className="mt-20">
           <h3 className="text-center text-sm font-medium uppercase tracking-widest text-muted">
-            Reasons to Partner With Us
+            How We Work With You
           </h3>
+          <p className="mx-auto mt-4 max-w-2xl text-pretty text-center leading-relaxed text-muted">
+            We show up as three things at once: a hands-on delivery team, a
+            vendor-neutral advisor, and a long-term operator of what we build
+            — not a vendor who disappears after go-live.
+          </p>
           <div className="mx-auto mt-10 grid max-w-5xl grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {PILLARS.map((pillar, i) => {
               const swatch = SWATCHES[i % SWATCHES.length];
