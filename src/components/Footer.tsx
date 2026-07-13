@@ -66,17 +66,38 @@ export function Footer() {
             </div>
           </div>
 
-          <nav className="grid grid-cols-2 gap-x-10 gap-y-2 sm:flex sm:gap-8">
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-sm text-muted transition-colors hover:text-foreground"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
+          <div className="grid grid-cols-2 gap-x-10 gap-y-8 sm:flex sm:gap-16">
+            <nav className="flex flex-col gap-2">
+              <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-foreground/60">
+                Explore
+              </p>
+              {NAV_LINKS.filter((link) => !link.children).map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="text-sm text-muted transition-colors hover:text-foreground"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+            <nav className="flex flex-col gap-2">
+              <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-foreground/60">
+                Company
+              </p>
+              {NAV_LINKS.find((link) => link.href === "/about")?.children?.map(
+                (child) => (
+                  <Link
+                    key={child.href}
+                    href={child.href}
+                    className="text-sm text-muted transition-colors hover:text-foreground"
+                  >
+                    {child.label}
+                  </Link>
+                )
+              )}
+            </nav>
+          </div>
         </div>
 
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 text-xs text-muted sm:flex-row">
