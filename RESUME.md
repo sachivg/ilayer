@@ -1,6 +1,8 @@
 # Resume point — iLayer Solutions
 
-**Status as of 2026-07-13:** Site is now multi-page with a real brand identity applied. Pushed to `origin/main` on GitHub (`sachivg/ilayer`). Not deployed/hosted anywhere yet — still local-only for live testing.
+**Status as of 2026-07-13, paused for PC restart:** Site is multi-page with a real brand identity applied. Working tree was clean and fully pushed to `origin/main` on GitHub (`sachivg/ilayer`) before this pause — nothing uncommitted. Dev server stopped gracefully via `./stop.sh`, which also wrote a tarball snapshot to `~/Documents/ilayer-backups/ilayer-20260713-123314.tar.gz`. Not deployed/hosted anywhere yet — still local-only for live testing.
+
+Next session: run `./start.sh` (after `nvm use 22`) to pick back up — see below.
 
 ## Start / stop
 
