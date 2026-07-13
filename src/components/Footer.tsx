@@ -101,9 +101,17 @@ export function Footer() {
         </div>
 
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 text-xs text-muted sm:flex-row">
-          <p>
-            &copy; {new Date().getFullYear()} iLayer Solutions. All rights
-            reserved.
+          <p className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 sm:justify-start">
+            <span>
+              &copy; {new Date().getFullYear()} iLayer Solutions. All rights
+              reserved.
+            </span>
+            <span aria-hidden className="text-border">
+              &middot;
+            </span>
+            <Link href="/privacy" className="hover:text-foreground">
+              Privacy Policy
+            </Link>
           </p>
           <p>India &middot; USA &middot; Australia</p>
         </div>
