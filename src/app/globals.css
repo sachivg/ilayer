@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  --background: #05070d;
-  --surface: #0c111d;
-  --surface-2: #10182a;
-  --foreground: #f4f7fb;
-  --muted: #94a3b8;
-  --border: rgba(148, 163, 184, 0.14);
-  --accent: #22d3ee;
-  --accent-2: #6366f1;
+  --background: #07080b;
+  --surface: #101115;
+  --surface-2: #16181e;
+  --foreground: #f6f5f2;
+  --muted: #9a978f;
+  --border: rgba(220, 214, 200, 0.12);
+  --accent: #ff8a3d;
+  --accent-2: #2dd4bf;
 }
 
 @theme inline {
@@ -46,7 +46,7 @@ body {
 }
 
 .text-gradient {
-  background: linear-gradient(90deg, #67e8f9, #818cf8);
+  background: linear-gradient(90deg, #ffb454, #ff6f70 48%, #2dd4bf);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

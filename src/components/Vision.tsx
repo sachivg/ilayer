@@ -1,4 +1,6 @@
 import { Cpu, Lock, Zap } from "lucide-react";
+import { LayersMark } from "./LayersMark";
+import { SWATCHES } from "@/lib/swatches";
 
 const PILLARS = [
   {
@@ -23,8 +25,12 @@ const PILLARS = [
 
 export function Vision() {
   return (
-    <section id="vision" className="section-anchor py-24 lg:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+    <section
+      id="vision"
+      className="section-anchor relative overflow-hidden py-24 lg:py-32"
+    >
+      <LayersMark className="pointer-events-none absolute -right-16 -top-16 h-auto w-80 rotate-12 opacity-[0.08]" />
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:items-center">
           <div>
             <p className="text-sm font-medium uppercase tracking-widest text-accent">
@@ -47,24 +53,29 @@ export function Vision() {
           </div>
 
           <div className="space-y-4">
-            {PILLARS.map((pillar) => (
-              <div
-                key={pillar.title}
-                className="flex gap-4 rounded-2xl border border-border bg-surface/60 p-6"
-              >
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-accent/20 to-accent-2/20 text-accent">
-                  <pillar.icon size={20} />
+            {PILLARS.map((pillar, i) => {
+              const swatch = SWATCHES[i % SWATCHES.length];
+              return (
+                <div
+                  key={pillar.title}
+                  className="flex gap-4 rounded-2xl border border-border bg-surface/60 p-6"
+                >
+                  <div
+                    className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${swatch.bg} ${swatch.text}`}
+                  >
+                    <pillar.icon size={20} />
+                  </div>
+                  <div>
+                    <h3 className="text-base font-semibold text-foreground">
+                      {pillar.title}
+                    </h3>
+                    <p className="mt-1.5 text-sm leading-relaxed text-muted">
+                      {pillar.description}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-base font-semibold text-foreground">
-                    {pillar.title}
-                  </h3>
-                  <p className="mt-1.5 text-sm leading-relaxed text-muted">
-                    {pillar.description}
-                  </p>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>

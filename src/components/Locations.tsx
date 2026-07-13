@@ -1,4 +1,5 @@
 import { MapPin } from "lucide-react";
+import { SWATCHES } from "@/lib/swatches";
 
 const LOCATIONS = [
   { country: "India", place: "Delhi" },
@@ -19,20 +20,25 @@ export function Locations() {
       </div>
 
       <div className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-3">
-        {LOCATIONS.map((location) => (
-          <div
-            key={location.country}
-            className="rounded-2xl border border-border bg-surface/60 p-7 text-center"
-          >
-            <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-accent/20 to-accent-2/20 text-accent">
-              <MapPin size={20} />
+        {LOCATIONS.map((location, i) => {
+          const swatch = SWATCHES[i % SWATCHES.length];
+          return (
+            <div
+              key={location.country}
+              className="rounded-2xl border border-border bg-surface/60 p-7 text-center"
+            >
+              <div
+                className={`mx-auto flex h-11 w-11 items-center justify-center rounded-xl ${swatch.bg} ${swatch.text}`}
+              >
+                <MapPin size={20} />
+              </div>
+              <div className="mt-4 text-base font-semibold text-foreground">
+                {location.country}
+              </div>
+              <div className="mt-1 text-sm text-muted">{location.place}</div>
             </div>
-            <div className="mt-4 text-base font-semibold text-foreground">
-              {location.country}
-            </div>
-            <div className="mt-1 text-sm text-muted">{location.place}</div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

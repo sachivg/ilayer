@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { Mail, Send } from "lucide-react";
 import { Locations } from "./Locations";
+import { LayersMark } from "./LayersMark";
 
 const CONTACT_EMAIL = "info@ilayersolutions.com";
 
@@ -21,11 +22,16 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="section-anchor py-24 lg:py-32">
-      <Locations />
+    <section
+      id="contact"
+      className="section-anchor relative overflow-hidden py-24 lg:py-32"
+    >
+      <LayersMark className="pointer-events-none absolute -left-24 top-1/3 h-auto w-80 rotate-12 opacity-[0.06]" />
+      <div className="relative">
+        <Locations />
 
-      <div className="mx-auto mt-24 max-w-3xl px-6 lg:px-8">
-        <div className="rounded-3xl border border-border bg-surface/60 p-8 sm:p-12">
+        <div className="mx-auto mt-24 max-w-3xl px-6 lg:px-8">
+          <div className="rounded-3xl border border-border bg-surface/60 p-8 sm:p-12">
           <div className="text-center">
             <p className="text-sm font-medium uppercase tracking-widest text-accent">
               Get In Touch
@@ -114,6 +120,7 @@ export function Contact() {
             </div>
           </form>
         </div>
+      </div>
       </div>
     </section>
   );

@@ -12,6 +12,8 @@ import {
   Check,
   type LucideIcon,
 } from "lucide-react";
+import { LayersMark } from "./LayersMark";
+import { SWATCHES } from "@/lib/swatches";
 
 type Service = {
   icon: LucideIcon;
@@ -139,10 +141,15 @@ const SERVICES: Service[] = [
 export function Services() {
   const [active, setActive] = useState(0);
   const service = SERVICES[active];
+  const swatch = SWATCHES[active % SWATCHES.length];
 
   return (
-    <section id="services" className="section-anchor py-24 lg:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+    <section
+      id="services"
+      className="section-anchor relative overflow-hidden pt-24 pb-16 lg:pt-32 lg:pb-20"
+    >
+      <LayersMark className="pointer-events-none absolute -right-20 top-0 h-auto w-72 rotate-6 opacity-[0.06]" />
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <p className="text-sm font-medium uppercase tracking-widest text-accent">
             What We Deliver
@@ -172,7 +179,10 @@ export function Services() {
                     : "border-border/50 bg-surface/20 text-muted hover:border-border hover:bg-surface/40 hover:text-foreground"
                 }`}
               >
-                <s.icon size={16} className={isActive ? "text-accent" : ""} />
+                <s.icon
+                  size={16}
+                  className={isActive ? SWATCHES[i % SWATCHES.length].text : ""}
+                />
                 {s.title}
               </button>
             );
@@ -181,7 +191,9 @@ export function Services() {
 
         <div className="rounded-b-2xl rounded-tr-2xl border border-border bg-surface p-8 sm:p-10">
           <div className="flex items-start gap-4">
-            <div className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-accent/20 to-accent-2/20 text-accent">
+            <div
+              className={`inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-xl ${swatch.bg} ${swatch.text}`}
+            >
               <service.icon size={24} />
             </div>
             <div>

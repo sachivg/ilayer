@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Mail } from "lucide-react";
+import { NAV_LINKS } from "@/lib/nav";
 
 function LinkedinIcon({
   size = 15,
@@ -23,29 +24,23 @@ function LinkedinIcon({
   );
 }
 
-const NAV_LINKS = [
-  { href: "#home", label: "Home" },
-  { href: "#vision", label: "Vision" },
-  { href: "#story", label: "Story" },
-  { href: "#services", label: "Services" },
-  { href: "#expertise", label: "Expertise" },
-  { href: "#contact", label: "Contact" },
-];
-
 export function Footer() {
   return (
     <footer className="border-t border-border">
       <div className="mx-auto max-w-7xl px-6 py-14 lg:px-8">
         <div className="flex flex-col items-start justify-between gap-10 sm:flex-row">
           <div>
-            <Link href="#home" className="flex items-center">
+            <Link href="/" className="flex items-center gap-2.5">
               <Image
-                src="/logo.png"
-                alt="iLayer Solutions"
-                width={999}
-                height={475}
-                className="h-8 w-auto"
+                src="/logo-icon.png"
+                alt=""
+                width={472}
+                height={472}
+                className="h-9 w-9"
               />
+              <span className="text-base font-semibold tracking-tight text-foreground">
+                iLayer Solutions
+              </span>
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted">
               Infrastructure, security, and automation solutions for Telecom
@@ -73,13 +68,13 @@ export function Footer() {
 
           <nav className="grid grid-cols-2 gap-x-10 gap-y-2 sm:flex sm:gap-8">
             {NAV_LINKS.map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
                 className="text-sm text-muted transition-colors hover:text-foreground"
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </nav>
         </div>

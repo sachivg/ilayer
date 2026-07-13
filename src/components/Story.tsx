@@ -5,6 +5,8 @@ import {
   BadgeCheck,
   type LucideIcon,
 } from "lucide-react";
+import { LayersMark } from "./LayersMark";
+import { SWATCHES } from "@/lib/swatches";
 
 const CERTIFICATIONS = [
   "JNCIE",
@@ -82,9 +84,10 @@ export function Story() {
   return (
     <section
       id="story"
-      className="section-anchor bg-surface/30 py-24 lg:py-32"
+      className="section-anchor relative overflow-hidden bg-surface/30 py-24 lg:py-32"
     >
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <LayersMark className="pointer-events-none absolute -left-20 top-10 h-auto w-72 -rotate-12 opacity-[0.07]" />
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <p className="text-sm font-medium uppercase tracking-widest text-accent">
             Our Story
@@ -106,21 +109,28 @@ export function Story() {
           </h3>
           <div className="relative mx-auto mt-10 max-w-4xl">
             <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
-              {JOURNEY.map((milestone) => (
-                <div key={milestone.year} className="relative pl-6">
-                  <div className="absolute left-0 top-1 h-full w-px bg-border" />
-                  <div className="absolute -left-[3px] top-1 h-2 w-2 rounded-full bg-gradient-to-br from-accent to-accent-2" />
-                  <p className="font-mono text-xs font-semibold uppercase tracking-wider text-accent">
-                    {milestone.year}
-                  </p>
-                  <h4 className="mt-2 text-base font-semibold text-foreground">
-                    {milestone.title}
-                  </h4>
-                  <p className="mt-2 text-sm leading-relaxed text-muted">
-                    {milestone.description}
-                  </p>
-                </div>
-              ))}
+              {JOURNEY.map((milestone, i) => {
+                const swatch = SWATCHES[i % SWATCHES.length];
+                return (
+                  <div key={milestone.year} className="relative pl-6">
+                    <div className="absolute left-0 top-1 h-full w-px bg-border" />
+                    <div
+                      className={`absolute -left-[3px] top-1 h-2 w-2 rounded-full ${swatch.dot}`}
+                    />
+                    <p
+                      className={`font-mono text-xs font-semibold uppercase tracking-wider ${swatch.text}`}
+                    >
+                      {milestone.year}
+                    </p>
+                    <h4 className="mt-2 text-base font-semibold text-foreground">
+                      {milestone.title}
+                    </h4>
+                    <p className="mt-2 text-sm leading-relaxed text-muted">
+                      {milestone.description}
+                    </p>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -130,22 +140,27 @@ export function Story() {
             Reasons to Partner With Us
           </h3>
           <div className="mx-auto mt-10 grid max-w-5xl grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {PILLARS.map((pillar) => (
-              <div
-                key={pillar.title}
-                className="rounded-2xl border border-border bg-surface/60 p-6"
-              >
-                <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-accent/20 to-accent-2/20 text-accent">
-                  <pillar.icon size={20} />
+            {PILLARS.map((pillar, i) => {
+              const swatch = SWATCHES[i % SWATCHES.length];
+              return (
+                <div
+                  key={pillar.title}
+                  className="rounded-2xl border border-border bg-surface/60 p-6"
+                >
+                  <div
+                    className={`inline-flex h-10 w-10 items-center justify-center rounded-xl ${swatch.bg} ${swatch.text}`}
+                  >
+                    <pillar.icon size={20} />
+                  </div>
+                  <h4 className="mt-4 text-sm font-semibold text-foreground">
+                    {pillar.title}
+                  </h4>
+                  <p className="mt-2 text-sm leading-relaxed text-muted">
+                    {pillar.description}
+                  </p>
                 </div>
-                <h4 className="mt-4 text-sm font-semibold text-foreground">
-                  {pillar.title}
-                </h4>
-                <p className="mt-2 text-sm leading-relaxed text-muted">
-                  {pillar.description}
-                </p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 

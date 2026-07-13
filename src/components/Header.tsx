@@ -3,18 +3,12 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
-
-const NAV_LINKS = [
-  { href: "#home", label: "Home" },
-  { href: "#vision", label: "Vision" },
-  { href: "#story", label: "Story" },
-  { href: "#services", label: "Services" },
-  { href: "#expertise", label: "Expertise" },
-  { href: "#contact", label: "Contact" },
-];
+import { NAV_LINKS } from "@/lib/nav";
 
 export function Header() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -41,35 +35,40 @@ export function Header() {
       }`}
     >
       <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
-        <Link href="#home" className="flex items-center">
+        <Link href="/" className="flex items-center gap-2.5">
           <Image
-            src="/logo.png"
-            alt="iLayer Solutions"
-            width={999}
-            height={475}
+            src="/logo-icon.png"
+            alt=""
+            width={472}
+            height={472}
             priority
-            className="h-8 w-auto"
+            className="h-9 w-9"
           />
+          <span className="text-base font-semibold tracking-tight text-foreground">
+            iLayer Solutions
+          </span>
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex">
           {NAV_LINKS.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
-              className="text-sm text-muted transition-colors hover:text-foreground"
+              className={`text-sm transition-colors hover:text-foreground ${
+                pathname === link.href ? "text-foreground" : "text-muted"
+              }`}
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
-        <a
-          href="#contact"
+        <Link
+          href="/contact"
           className="hidden rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background transition-opacity hover:opacity-90 lg:inline-block"
         >
           Contact Us
-        </a>
+        </Link>
 
         <button
           type="button"
@@ -85,22 +84,24 @@ export function Header() {
         <div className="border-t border-border bg-background/97 backdrop-blur-md lg:hidden">
           <nav className="mx-auto flex max-w-7xl flex-col gap-1 px-6 py-4">
             {NAV_LINKS.map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="rounded-lg px-3 py-3 text-sm text-muted transition-colors hover:bg-surface hover:text-foreground"
+                className={`rounded-lg px-3 py-3 text-sm transition-colors hover:bg-surface hover:text-foreground ${
+                  pathname === link.href ? "text-foreground" : "text-muted"
+                }`}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
-            <a
-              href="#contact"
+            <Link
+              href="/contact"
               onClick={() => setOpen(false)}
               className="mt-2 rounded-full bg-foreground px-5 py-3 text-center text-sm font-medium text-background"
             >
               Contact Us
-            </a>
+            </Link>
           </nav>
         </div>
       )}
